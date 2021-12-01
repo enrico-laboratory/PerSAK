@@ -8,5 +8,12 @@ setup(
     license='MIT',
     author='Enrico Ruggieri',
     author_email='',
-    description='A collection of scripts which are executed via this CLI app'
+    description='A collection of scripts which are executed via this CLI app',
+    install_requires=[
+        'Click',
+    ],
+    entry_points='''
+        [console_scripts]
+        persak=persak:cli
+    '''
 )
