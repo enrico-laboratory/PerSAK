@@ -1,3 +1,5 @@
 /.idea/
 /venv/
 /PerSAK.iml
+/PerSAK.egg-info/
+/.env
