@@ -1,5 +1,5 @@
 import click
-from scripts.qemu_connection import QemuConnection
+from scripts.qemu_utilities import QemuConnection
 
 click.echo('Creating connection\n')
 conn = QemuConnection()
@@ -10,12 +10,11 @@ for info in node_info:
     print(info)
 
 click.echo('Print list active domains')
-active_domains = conn.list_active_domain()
-for k, v in active_domains.items():
-    click.echo(str(k) + " " + v)
+for domain in conn.list_active_domain():
+    print(domain)
 
 click.echo('Shutting down domains...')
-domain = conn.shutdown_domain(1)
+domain = conn.shutdown_domain("00-Minecraftserver")
 click.echo('Domain ' + domain + ' is down!')
 
 closed = conn.close_connection()

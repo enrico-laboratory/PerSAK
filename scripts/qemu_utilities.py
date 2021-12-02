@@ -15,7 +15,6 @@ def create_connection():
     except libvirt.libvirtError as e:
         print(repr(e), file=sys.stderr)
         exit(1)
-
     return conn
 
 
@@ -23,6 +22,9 @@ class QemuConnection:
 
     def __init__(self):
         self.conn = create_connection()
+
+    def close_connection(self) -> bool:
+        return self.conn.close()
 
     def list_node_info(self) -> list:
         node_info = self.conn.getInfo()
@@ -39,8 +41,8 @@ class QemuConnection:
                 ]
         return info
 
-    def list_active_domain(self) -> dict:
-        active_domains = {}
+    def list_active_domain(self) -> list:
+        active_domains = []
         domain_ids = self.conn.listDomainsID()
         if domain_ids is None:
             print('Failed to get a list of domain IDs', file=sys.stderr)
@@ -49,19 +51,13 @@ class QemuConnection:
         else:
             for domain_id in domain_ids:
                 domain_name = self.conn.lookupByID(domain_id).name()
-                active_domains[int(domain_id)] = domain_name
-
+                active_domains.append(domain_name)
             return active_domains
 
-    def shutdown_domain(self, domain_id: int) -> str:
-        domain = self.conn.lookupByID(domain_id)
+    def shutdown_domain(self, domain_name: str) -> str:
+        domain = self.conn.lookupByName(domain_name)
         if domain is None:
-            print('Failed to get the domain object', file=sys.stderr)
+            print('The domain Id is not active or not existing', file=sys.stderr)
         else:
-            print("Shutting down \"" + str(domain.name()) + "\" domain...")
             domain.shutdown()
             return domain.name()
-
-    def close_connection(self) -> bool:
-        print('CLosing connection...')
-        return self.conn.close()
