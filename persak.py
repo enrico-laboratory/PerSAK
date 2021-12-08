@@ -35,8 +35,11 @@ def off(list_, down_selected, reb, down):
 
     if list_:
         print('Active domains:')
-        for domain in conn.list_active_domain():
-            print(domain)
+        try:
+            for domain in conn.list_active_domain():
+                print(domain)
+        except TypeError as e:
+            pass
         click.echo("...closing connection.")
         conn.close_connection()
 
