@@ -85,8 +85,13 @@ def backup():
 
 
 @cli.command()
-# @click.option('--string', default='World')
-def gdrive():
-    """Backup"""
-    click.echo('Hello World!')
-    print(sync_dir("/volumes/share/Conducting", "1ggP6aU93RJT1HzgigtzIA6YLeMWAJtKD"))
+@click.option('--folders', '-f',
+              type=str,
+              nargs=2,
+              help='local and gdrive folders to sync')
+def gdrive(folders):
+    """Gdrive sync"""
+    a, b = folders
+
+    click.echo("Syncing " + a + " with " + b + ".")
+    print(sync_dir(a, b))
