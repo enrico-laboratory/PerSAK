@@ -36,11 +36,11 @@ def off(list_, down_selected, reb, down):
 
     if list_:
         print('Active domains:')
-        try:
-            for domain in conn.list_active_domain():
-                print(domain)
-        except TypeError as e:
-            pass
+        active_domains = conn.list_active_domain()
+        if not active_domains:
+            print("No active domains found...(did you sudo?)")
+        for domain in conn.list_active_domain():
+            print(domain)
         click.echo("...closing connection.")
         conn.close_connection()
 
@@ -54,19 +54,15 @@ def off(list_, down_selected, reb, down):
     if down or reb:
         click.echo("Shutting down all VMs except OPNSense...")
         active_domains = conn.list_active_domain()
-        if not active_domains:
-            print("No active domains found...")
-        else:
+        if active_domains:
             for domain in active_domains:
                 print("Shutting down \"" + str(domain) + "\" domain...")
                 conn.shutdown_domain(domain)
 
         if down:
-            # TODO System shutdown
             click.echo("Shutdown!!")
             subprocess.run(['shutdown', '+1'])
         if reb:
-            # TODO System reboot
             click.echo("Rebooting!!")
             subprocess.run(['shutdown', '-r', '+1'])
 
