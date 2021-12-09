@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='PerSAK',
-    version='0.1.1',
+    version='0.2.0',
     packages=[],
     url='https://github.com/enrico-laboratory/PerSAK',
     license='MIT',
