@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 import click
 from scripts.qemu_utilities import QemuConnection
@@ -62,9 +63,11 @@ def off(list_, down_selected, reb, down):
         if down:
             # TODO System shutdown
             click.echo("Shutdown!!")
+            subprocess.run(['shutdown', '+1'])
         if reb:
             # TODO System reboot
             click.echo("Rebooting!!")
+            subprocess.run(['shutdown', '-r', '+1'])
 
 
 @cli.command()
