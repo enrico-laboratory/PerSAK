@@ -12,5 +12,11 @@ def sync_dir(src: str, dest: str, *args):
     if not gdrive_path:
         print("gdrive path is empty...")
         quit(1)
-    return subprocess.run([gdrive_path, 'sync', 'upload', src, dest], stdout=True)
+    upload = subprocess.run([gdrive_path, 'sync', 'upload', src, dest], stdout=True)
+    download = subprocess.run([gdrive_path, 'sync', 'download', dest, src], stdout=True)
+    return upload, download
+
+def list_dir():
+    pass
+
 
