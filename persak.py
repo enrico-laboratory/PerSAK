@@ -54,9 +54,7 @@ def off(list_, down_selected, reb, down):
     if down or reb:
         click.echo("Shutting down all VMs except OPNSense...")
         active_domains = conn.list_active_domain()
-        index = active_domains.index(os.environ.get("OPNSENSE_DOMAIN"))
-        # removing OPNSense domain from list
-        active_domains.pop(index)
+
         for domain in active_domains:
             print("Shutting down \"" + str(domain) + "\" domain...")
             conn.shutdown_domain(domain)
