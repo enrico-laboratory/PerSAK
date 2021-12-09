@@ -44,15 +44,10 @@ class QemuConnection:
     def list_active_domain(self) -> list:
         active_domains = []
         domain_ids = self.conn.listDomainsID()
-        if domain_ids is None:
-            print('Failed to get a list of domain IDs', file=sys.stderr)
-        if len(domain_ids) == 0:
-            print('No active domains found', file=sys.stderr)
-        else:
-            for domain_id in domain_ids:
-                domain_name = self.conn.lookupByID(domain_id).name()
-                active_domains.append(domain_name)
-            return active_domains
+        for domain_id in domain_ids:
+            domain_name = self.conn.lookupByID(domain_id).name()
+            active_domains.append(domain_name)
+        return active_domains
 
     def shutdown_domain(self, domain_name: str) -> str:
         domain = self.conn.lookupByName(domain_name)
