@@ -3,6 +3,7 @@ import subprocess
 
 import click
 from scripts.qemu_utilities import QemuConnection
+from scripts.gdrive import sync_dir
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -81,3 +82,11 @@ def mc():
 def backup():
     """Backup"""
     click.echo('Hello World!')
+
+
+@cli.command()
+# @click.option('--string', default='World')
+def gdrive():
+    """Backup"""
+    click.echo('Hello World!')
+    print(sync_dir("Conducting", "1ggP6aU93RJT1HzgigtzIA6YLeMWAJtKD"))
