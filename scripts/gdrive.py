@@ -9,5 +9,8 @@ load_dotenv()
 
 def sync_dir(src: str, dest: str, *args):
     gdrive_path = os.getenv("GDRIVE_PATH")
-    return subprocess.run([gdrive_path, 'sync', src, dest], stdout=True)
+    if not gdrive_path:
+        print("gdrive path is empty...")
+        quit(1)
+    return subprocess.run([gdrive_path, 'sync', 'upload', src, dest], stdout=True)
 
