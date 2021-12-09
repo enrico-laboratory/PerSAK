@@ -89,4 +89,4 @@ def backup():
 def gdrive():
     """Backup"""
     click.echo('Hello World!')
-    print(sync_dir("Conducting", "1ggP6aU93RJT1HzgigtzIA6YLeMWAJtKD"))
+    print(sync_dir("/volumes/share/Conducting", "1ggP6aU93RJT1HzgigtzIA6YLeMWAJtKD"))
